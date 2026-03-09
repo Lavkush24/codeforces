@@ -5,35 +5,49 @@ using namespace std;
 int beauty_avg() {
     int n;
     cin>>n;
-    int *num = new int[n];
 
-    for(int i=0;i<n; i++) {
-        cin>>num[i];
+    int num[n];
+    int sum = 0;
+    for(int i=0; i<n; i++) { cin>>num[i]; sum += num[i]; }
+
+    int max_avg = sum/n;
+    int sum_t = sum;
+
+    int i=0;
+    while(i < n-1) {
+        sum -= num[i];
+        int avg = sum/(n-i-1);
+        if(max_avg < avg) { 
+            max_avg = avg;
+        }
+        i++;
     }
 
-    int l=0,r=0;
-    int max_avg = -1;
-    int sum = 0;
-
-    while(l < n) {
-        if(r >= n) {
-            sum -= num[l];
-        }
-        else {
-            sum += num[r];
-        }
-
-        int avg = sum / (r-l+1);
+    sum = sum_t;
+    int j=n-1;
+    while(j > 0) {
+        sum_t -= num[j];
+        int avg = sum_t/j;
         if(max_avg < avg) {
             max_avg = avg;
         }
+        j--;
+    }
 
-        if(r < n) {
-            r++;
+    sum -= (num[0]+num[n-1]);
+    i = 1,j = n-2;
+    while(i <= j) {
+        int avg = sum/(j-i+1);
+        if(max_avg < avg) {
+            max_avg = avg;
+        }
+        if(i == j) {
+            sum -= num[i];
         }
         else {
-            l++;
+            sum -= (num[i]+num[j]);
         }
+        i++,j--;
     }
 
     return max_avg;
