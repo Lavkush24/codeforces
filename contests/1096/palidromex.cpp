@@ -1,7 +1,6 @@
 #include<iostream>
 using namespace std;
 
-
 bool is_palindrome(int *num,int l,int r) {
     while(l <= r) {
         if(num[l] != num[r]) {
@@ -11,7 +10,6 @@ bool is_palindrome(int *num,int l,int r) {
     }
     return true;
 }
-
 
 int palindromex() {
     int n;
